@@ -27,7 +27,7 @@ steps:
 - name: build-maven
   pull: always
   image: hotmart/pipeline-maven:3-jdk-8-slim
-  commands:
+  command:
   - mvn -DskipTests=true package -f spring-cloud-task-batch/pom.xml
   environment:
     MAVEN_SETTINGS:
