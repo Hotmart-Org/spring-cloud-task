@@ -29,7 +29,7 @@ steps:
   image: hotmart/pipeline-maven:3-jdk-8-slim
   commands:
   - cd spring-cloud-task-batch
-  - mvn -DskipTests=true source:jar package dependency:resolve-plugins
+  - mvn -DskipTests=true package
   environment:
     MAVEN_SETTINGS:
       from_secret: maven_settings
@@ -55,8 +55,8 @@ steps:
     pom: pom.xml
     force_upload: true
     files:
-    - target/*.jar
-    - pom.xml
+    - spring-cloud-task-batch/target/*.jar
+    - spring-cloud-task-batch/pom.xml
   environment:
     ARTIFACTORY_PASSWORD:
       from_secret: artifactory_password
