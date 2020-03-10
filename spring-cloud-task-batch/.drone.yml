@@ -51,7 +51,7 @@ steps:
   settings:
     url: https://mvnrepository.vulcano.rocks
     username: drone
-    pom: pom.xml
+    pom: spring-cloud-task-batch/pom.xml
     force_upload: true
     files:
     - spring-cloud-task-batch/target/*.jar
