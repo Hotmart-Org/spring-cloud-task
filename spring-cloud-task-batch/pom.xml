@@ -15,6 +15,14 @@
 	<name>Spring Cloud Task Batch</name>
 	<description>Module for use when combining Spring Cloud Task with Spring Batch
 	</description>
+	
+	<properties>
+		<maven-checkstyle-plugin.failsOnError>false</maven-checkstyle-plugin.failsOnError>
+		<maven-checkstyle-plugin.failsOnViolation>false
+		</maven-checkstyle-plugin.failsOnViolation>
+		<maven-checkstyle-plugin.includeTestSourceDirectory>false
+		</maven-checkstyle-plugin.includeTestSourceDirectory>
+	</properties>
 
 	<dependencies>
 		<dependency>
