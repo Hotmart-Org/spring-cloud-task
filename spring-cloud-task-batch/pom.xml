@@ -16,7 +16,7 @@
 	<version>2.2.3.RELEASE-HOTMART</version>
 	<packaging>jar</packaging>
 	<name>Spring Cloud Task Batch</name>
-	<description>Module for use when combining Spring Cloud Task with Spring Batch
+	<description>Module for use when combining Spring Cloud Task with Spring Batch 
 	</description>
 
 	<dependencies>
