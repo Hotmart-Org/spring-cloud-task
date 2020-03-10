@@ -296,6 +296,7 @@ public class DeployerPartitionHandler
 		final Set<StepExecution> executed = new HashSet<>(candidates.size());
 
 		if (CollectionUtils.isEmpty(candidates)) {
+			logger.debug("Zero candidates.");
 			return Collections.emptySet();
 		}
 
@@ -310,10 +311,14 @@ public class DeployerPartitionHandler
 			Set<StepExecution> executed) {
 		for (StepExecution execution : candidates) {
 			if (this.currentWorkers < this.maxWorkers || this.maxWorkers < 0) {
+				logger.debug("Launching worker: " + execution);
 				launchWorker(execution);
 				this.currentWorkers++;
 
 				executed.add(execution);
+			} else {
+				logger.debug("currentWorkers: " + currentWorkers + ", maxWorkers: " + maxWorkers + ". "
+				    + "Not launching worker " + execution);
 			}
 		}
 	}
@@ -386,6 +391,11 @@ public class DeployerPartitionHandler
 		AppDeploymentRequest request = new AppDeploymentRequest(definition, this.resource,
 				this.deploymentProperties, arguments);
 
+		if (logger.isDebugEnabled()) {
+			logger.debug(
+					"Requesting the launch of the following application: " + request);
+		}
+		
 		String externalExecutionId = this.taskLauncher.launch(request);
 
 		if (this.taskRepository != null) {
