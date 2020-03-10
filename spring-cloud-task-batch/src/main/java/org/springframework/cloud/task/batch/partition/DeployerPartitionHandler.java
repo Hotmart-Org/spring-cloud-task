@@ -316,9 +316,10 @@ public class DeployerPartitionHandler
 				this.currentWorkers++;
 
 				executed.add(execution);
-			} else {
-				logger.debug("currentWorkers: " + currentWorkers + ", maxWorkers: " + maxWorkers + ". "
-				    + "Not launching worker " + execution);
+			}
+			else {
+				logger.debug("currentWorkers: " + currentWorkers + ", maxWorkers: "
+						+ maxWorkers + ". " + "Not launching worker " + execution);
 			}
 		}
 	}
@@ -395,7 +396,7 @@ public class DeployerPartitionHandler
 			logger.debug(
 					"Requesting the launch of the following application: " + request);
 		}
-		
+
 		String externalExecutionId = this.taskLauncher.launch(request);
 
 		if (this.taskRepository != null) {
