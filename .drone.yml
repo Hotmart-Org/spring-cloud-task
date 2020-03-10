@@ -16,7 +16,7 @@ platform:
 
 steps:
 - name: restore-cache
-  image: meltwater/drone-cache:v1.0.4
+  image: meltwater/drone-cache:1.0.4
   settings:
   bucket: player-drone-cache
   mount:
@@ -36,7 +36,7 @@ steps:
   - restore-cache
 
 - name: rebuild-cache
-  image: meltwater/drone-cache:v1.0.4
+  image: meltwater/drone-cache:1.0.4
   settings:
     bucket: player-drone-cache
     mount:
