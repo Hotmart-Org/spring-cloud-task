@@ -291,8 +291,8 @@ public class DeployerPartitionHandler
 
 		int partitions = candidates.size();
 
-		this.logger.debug(String.format("%s partitions were returned", partitions));
-
+		this.logger.debug(String.format("%s partitions were returned", partitions) + ". Candidates size: " + candidates.size());
+		
 		final Set<StepExecution> executed = new HashSet<>(candidates.size());
 
 		if (CollectionUtils.isEmpty(candidates)) {
@@ -303,6 +303,8 @@ public class DeployerPartitionHandler
 		launchWorkers(candidates, executed);
 
 		candidates.removeAll(executed);
+		
+		logger.debug("Candidates size after launch: " + candidates.size());
 
 		return pollReplies(stepExecution, executed, candidates, partitions);
 	}
@@ -424,6 +426,7 @@ public class DeployerPartitionHandler
 
 		final Collection<StepExecution> result = new ArrayList<>(executed.size());
 
+		logger.debug("Polling workers. Executed: " + executed.size() + ". Candidates: " + candidates.size() + ". Partitions: " + size);		
 		Callable<Collection<StepExecution>> callback = new Callable<Collection<StepExecution>>() {
 			@Override
 			public Collection<StepExecution> call() throws Exception {
@@ -436,14 +439,21 @@ public class DeployerPartitionHandler
 										curStepExecution.getId());
 
 						BatchStatus batchStatus = partitionStepExecution.getStatus();
+						
+						logger.debug("Partition step execution: " + partitionStepExecution);
+						
 						if (batchStatus != null && isComplete(batchStatus)) {
 							result.add(partitionStepExecution);
 							DeployerPartitionHandler.this.currentWorkers--;
-
+							
 							if (!candidates.isEmpty()) {
-
+								logger.debug("Completed one step execution. Trying to launch new workers.");
+								
 								launchWorkers(candidates, newExecuted);
 								candidates.removeAll(newExecuted);
+								
+							} else {
+								logger.debug("Won't launch new workers. Candidates is empty.");
 							}
 						}
 					}
