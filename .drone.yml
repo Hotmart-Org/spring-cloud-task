@@ -16,18 +16,18 @@ platform:
 
 steps:
 - name: restore-cache
-  image: meltwater/drone-cache:dev
+  image: meltwater/drone-cache:1.0.4
   settings:
-  bucket: player-drone-cache
-  mount:
-  - .m2
-  region: us-east-1
-  restore: true
+    bucket: player-drone-cache
+    mount:
+    - .m2
+    region: us-east-1
+    restore: true
 
 - name: build-maven
   pull: always
   image: hotmart/pipeline-maven:3-jdk-8-slim
-  commands:
+  command:
   - mvn -DskipTests=true package -f spring-cloud-task-batch/pom.xml
   environment:
     MAVEN_SETTINGS:
@@ -36,7 +36,7 @@ steps:
   - restore-cache
 
 - name: rebuild-cache
-  image: meltwater/drone-cache:dev
+  image: meltwater/drone-cache:1.0.4
   settings:
     bucket: player-drone-cache
     mount:
