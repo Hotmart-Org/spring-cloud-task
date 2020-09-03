@@ -440,7 +440,7 @@ public class DeployerPartitionHandler
 
 						BatchStatus batchStatus = partitionStepExecution.getStatus();
 						
-						logger.debug("Partition step execution: " + partitionStepExecution);
+						logger.trace("Partition step execution: " + partitionStepExecution);
 						
 						if (batchStatus != null && isComplete(batchStatus)) {
 							result.add(partitionStepExecution);
